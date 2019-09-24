@@ -3,4 +3,5 @@ function greeter(person) {
 }
 var user = "Jane User";
 console.log(greeter(user));
- 
+console.log(greeter(user));
+//modificacion
