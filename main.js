@@ -77,6 +77,9 @@ console.log(barman1);
 console.log(trago1);
 //bar1.nombre = "pueblito"; forma incorrecta
 bar1.setNombre("el Pueblito");
+barman1.setNombre("Pedro");
+trago1.setNombre("Fenet");
 //console.log(bar1.nombre); forma incorrecta
 console.log(bar1.getNombre());
 console.log(barman1.getNombre());
+console.log(trago1.getNombre());
