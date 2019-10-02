@@ -23,6 +23,9 @@ var Estudiante = /** @class */ (function () {
         this.correo = cor;
         this.direccion = dir;
     }
+    Estudiante.prototype.añadirNuevaDirEst = function (dir) {
+        this.direccion.push(dir);
+    };
     return Estudiante;
 }());
 exports.Estudiante = Estudiante;
@@ -34,6 +37,9 @@ var Docente = /** @class */ (function () {
         this.profecion = pro;
         this.direccion = dir;
     }
+    Docente.prototype.añadirNuevaDirDoc = function (dir) {
+        this.direccion.push(dir);
+    };
     return Docente;
 }());
 exports.Docente = Docente;
@@ -53,6 +59,9 @@ var Curso = /** @class */ (function () {
         this.precio = p;
         this.docente = a;
     }
+    Curso.prototype.getPrecio = function () {
+        return this.precio;
+    };
     return Curso;
 }());
 exports.Curso = Curso;
@@ -62,9 +71,34 @@ var CompraCurso = /** @class */ (function () {
         this.estudiante = e;
         this.fecha = f;
     }
+    CompraCurso.prototype.getCurso = function () {
+        return this.curso;
+    };
     return CompraCurso;
 }());
 exports.CompraCurso = CompraCurso;
+var PlataformaEducativa = /** @class */ (function () {
+    function PlataformaEducativa(nom, regi) {
+        this.nombre = nom;
+        this.registroCursoComprado = regi;
+    }
+    PlataformaEducativa.prototype.registrarVenta = function (com) {
+        this.registroCursoComprado.push(com);
+    };
+    PlataformaEducativa.prototype.totalIngreso = function () {
+        var acum = 0;
+        var compraCursoIndex;
+        var cursoIndex;
+        for (var i = 0; i < this.registroCursoComprado.length; i++) {
+            compraCursoIndex = this.registroCursoComprado[i];
+            cursoIndex = compraCursoIndex.getCurso();
+            acum = acum + cursoIndex.getPrecio();
+        }
+        return acum;
+    };
+    return PlataformaEducativa;
+}());
+exports.PlataformaEducativa = PlataformaEducativa;
 var direccion1 = new Direccion("ciudad Rojo", "barrio ligth", "calle Oruro");
 var direccion2 = new Direccion("ciudad Verde", "barrio Dark", "calle Brazil");
 var direccion3 = new Direccion("ciudad Azul", "barrio Wind", "calle Sucre");
@@ -141,3 +175,15 @@ console.log(compraCurso9);
 console.log(compraCurso10);
 console.log(compraCurso11);
 console.log(compraCurso12);
+console.log(docenteAngel);
+docenteAngel.añadirNuevaDirDoc(direccion3);
+console.log(docenteAngel);
+console.log(estudianteRed);
+estudianteRed.añadirNuevaDirEst(direccion1);
+console.log(estudianteRed);
+var plataforma1 = new PlataformaEducativa("Hero", [compraCurso3]);
+console.log(plataforma1);
+plataforma1.registrarVenta(compraCurso12);
+var sum = plataforma1.totalIngreso();
+console.log(plataforma1);
+console.log(sum);

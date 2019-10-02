@@ -26,6 +26,9 @@ export class Estudiante{
         this.correo = cor;
         this.direccion = dir;
     }
+    public añadirNuevaDirEst(dir: Direccion): void{
+        this.direccion.push(dir);
+    }
 }
 export class Docente{
     private nombre: string;
@@ -40,6 +43,9 @@ export class Docente{
         this.correo = cor;
         this.profecion = pro;
         this.direccion = dir;
+    }
+    public añadirNuevaDirDoc(dir: Direccion): void{
+        this.direccion.push(dir);
     }
 }
 export class Direccion{
@@ -65,6 +71,9 @@ export class Curso{
         this.precio = p;
         this.docente = a;
     }
+    public getPrecio(): number{
+        return this.precio;
+    }
 }
 export class CompraCurso{
     private curso: Curso;
@@ -76,7 +85,34 @@ export class CompraCurso{
         this.estudiante = e;
         this.fecha = f;
     }
+    public getCurso(): Curso{
+        return this.curso;
+    }
 }
+export class PlataformaEducativa{
+    private nombre: string;
+    private registroCursoComprado: CompraCurso[];
+
+    public constructor(nom: string, regi: CompraCurso[]){
+        this.nombre = nom;
+        this.registroCursoComprado = regi;
+    }
+    public registrarVenta(com: CompraCurso): void{
+        this.registroCursoComprado.push(com);
+    }
+    public totalIngreso(): number{
+        let acum: number= 0;
+        let compraCursoIndex: CompraCurso;
+        let cursoIndex: Curso;
+        for(let i: number = 0; i < this.registroCursoComprado.length; i++){
+            compraCursoIndex = this.registroCursoComprado[i]
+            cursoIndex = compraCursoIndex.getCurso();
+            acum = acum + cursoIndex.getPrecio();
+        }
+        return acum;
+    }
+}
+
 let direccion1: Direccion = new Direccion("ciudad Rojo","barrio ligth","calle Oruro");
 let direccion2: Direccion = new Direccion("ciudad Verde","barrio Dark","calle Brazil");
 let direccion3: Direccion = new Direccion("ciudad Azul","barrio Wind","calle Sucre");
@@ -157,6 +193,24 @@ console.log(compraCurso9);
 console.log(compraCurso10);
 console.log(compraCurso11);
 console.log(compraCurso12);
+
+console.log(docenteAngel);
+docenteAngel.añadirNuevaDirDoc(direccion3);
+console.log(docenteAngel);
+
+console.log(estudianteRed);
+estudianteRed.añadirNuevaDirEst(direccion1);
+console.log(estudianteRed);
+
+let plataforma1: PlataformaEducativa = new PlataformaEducativa("Hero",[compraCurso3]);
+console.log(plataforma1);
+plataforma1.registrarVenta(compraCurso12);
+let sum: number = plataforma1.totalIngreso();
+console.log(plataforma1);
+console.log(sum);
+
+
+
 
 
 
